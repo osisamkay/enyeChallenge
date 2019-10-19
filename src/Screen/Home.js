@@ -1,97 +1,32 @@
 import React,{Fragment,useState} from 'react';
-import { Form, Input, Button, Card, DatePicker, Table, Divider, Tag } from 'antd';
+import { Form,  Button, Card, DatePicker, Table} from 'antd';
+import FormComponent from '../Components/FormComponent';
+import { FormItemLayout, buttonItemLayout} from "../Components/Formlayout"
+import useResult from '../hooks/useResult';
+import {columns} from "../Components/TableComponent"
 
 const Home = () => {
-    const[firstName,setFirstName]=useState("");
-    const[lastName,setLastName]=useState("");
-    const[Birthday,setBirthday]=useState("");
-    const[age,setAge]=useState("");
-    const[hobby,setHobby]=useState("");
-    const[tableData,setTableData]=useState([])
+    const [handleSubmit, firstName, lastName, Birthday, age, hobby, tableData, setFirstName, setLastName, setBirthday, setAge, setHobby]=useResult()
 
-
-// ............handle form submit...............
-    const handleSubmit=()=>{
-        const info={                //collects table data from form
-            firstName:firstName,
-            lastName:lastName,
-            birthday:Birthday,
-            age:age,
-            hobby:hobby
-        }
-        
-        setTableData([...tableData, info]) //appends information to table
-        setFirstName("");
-        setLastName("");
-        setBirthday("");
-        setAge("");
-        setHobby("");
-        
-    }
-// ............form layout...............
-    const formItemLayout = {
-        labelCol: { span: 4 },
-        wrapperCol: { span: 20 },
-    }
-    const buttonItemLayout = {
-        wrapperCol: { span: 14, offset: 4 },
-    }
-
-   
 // ............date format...............
     const dateFormat = 'DD/MM/YYYY';
 
-// ............Table head titles...............
-    const columns = [
-        {
-            title: 'First Name',
-            dataIndex: 'firstName',
-            key: 'firstName',
-           
-        },
-        {
-            title: 'Last Name',
-            dataIndex: 'lastName',
-            key: 'lastName',
-        },
-        {
-            title: 'Birthday',
-            dataIndex: 'birthday',
-            key: 'birthday',
-        },
-        {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
-        },
-        {
-            title: 'Hobby',
-            dataIndex: 'hobby',
-            key: 'hobby',
-        },
-    ]
+
     return (
         <Fragment >
             <Card title="User Form" style={{ maxWidth: 500, width: "100%", margin: "auto" }}>
                 <Form layout="horizontal">
-                    <Form.Item label="First Name" {...formItemLayout}>
-                        <Input placeholder="input first name" value={firstName} onChange={(e)=>{setFirstName(e.target.value)}}/>
+                    <FormComponent label="First Name" placeholder="input first name" value={firstName} handleValue={(e)=>{setFirstName(e.target.value)}}/>
+                    <FormComponent label="Last Name" placeholder="input last name" value={lastName} handleValue={(e)=>{setLastName(e.target.value)}}/>
+                    <FormComponent label="First Name" placeholder="input first name" value={firstName} handleValue={(e)=>{setFirstName(e.target.value)}}/>
+                    <Form.Item label="Birthday" {...FormItemLayout}>
+                        <DatePicker format={dateFormat} onChange={(date, dateString) => { setBirthday(dateString) }} />
                     </Form.Item>
-                    <Form.Item label="Last Name" {...formItemLayout}>
-                        <Input placeholder="input last name" value={lastName} onChange={(e) => {setLastName(e.target.value)}} />
-                    </Form.Item>
-                    <Form.Item label="Birthday" {...formItemLayout}>
-                        <DatePicker format={dateFormat} onChange={(date,dateString) => { setBirthday(dateString)}}  />
-                    </Form.Item>
-                    <Form.Item label="Age" {...formItemLayout}>
-                        <Input placeholder="input age" value={age} onChange={(e) => { setAge(e.target.value) }} />
-                    </Form.Item>
-                    <Form.Item label="Hobby" {...formItemLayout}>
-                        <Input placeholder="input hobby" value={hobby} onChange={(e) => { setHobby(e.target.value) }} />
-                    </Form.Item>
+                    <FormComponent label="Age" placeholder="input Age" value={age} handleValue={(e)=>{setAge(e.target.value)}}/>
+                    <FormComponent label="Hobby" placeholder="input Hobby" value={hobby} handleValue={(e)=>{setHobby(e.target.value)}}/>
                     <Form.Item {...buttonItemLayout}>
                         <Button type="primary" onClick={handleSubmit}>Submit</Button>
-                    </Form.Item>
+                    </Form.Item> 
                 </Form>
             </Card>
             <div style={{maxWidth:"1200px",margin:"auto",marginTop:"30px"}}>
