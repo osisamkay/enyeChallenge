@@ -1,5 +1,5 @@
 import React,{Fragment} from 'react';
-import { Form, Input,  } from 'antd';
+import { Form, Input } from 'antd';
 import { FormItemLayout} from "../Components/Formlayout"
 // ............form layout...............
 
