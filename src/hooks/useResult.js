@@ -30,9 +30,9 @@ export default ()=>{
 
     }
 
-useEffect(() => {
-    handleSubmit()
-}, []);
+// useEffect(() => {
+//     handleSubmit()
+// }, []);
 
     return [handleSubmit,firstName,lastName,Birthday,age,hobby,tableData,setFirstName,setLastName,setBirthday,setAge,setHobby];
 }
