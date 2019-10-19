@@ -1,6 +1,4 @@
-import React,{useState,useEffect} from 'react'
-
-
+import {useState} from 'react'
 
 export default ()=>{
     const [firstName, setFirstName] = useState("");
@@ -29,10 +27,6 @@ export default ()=>{
         setHobby("");
 
     }
-
-// useEffect(() => {
-//     handleSubmit()
-// }, []);
 
     return [handleSubmit,firstName,lastName,Birthday,age,hobby,tableData,setFirstName,setLastName,setBirthday,setAge,setHobby];
 }
