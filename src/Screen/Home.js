@@ -2,34 +2,37 @@ import React,{Fragment} from 'react';
 import { Form,  Button, Card, DatePicker, Table} from 'antd';
 import FormComponent from '../Components/FormComponent';
 import { FormItemLayout, buttonItemLayout} from "../Components/Formlayout"
-import useResult from '../hooks/useResult';
 import {columns} from "../Components/TableComponent"
+import {useSelector,useDispatch} from "react-redux"
+import { rootReducer } from '../reducer/rootReducer';
 
 const Home = () => {
-    const [handleSubmit, firstName, lastName, Birthday, age, hobby, tableData, setFirstName, setLastName, setBirthday, setAge, setHobby]=useResult()
+    const { firstName, lastName, age, hobby, birthday,list} = useSelector(state => state)
 
-// ............date format...............
-    const dateFormat = 'DD/MM/YYYY';
+    const dispatch = useDispatch()
 
-
+   //... ......submit payload.............
+    const info = {firstName,lastName,birthday,age,hobby}
+    
     return (
         <Fragment >
-            <Card title="User Form" style={{ maxWidth: 500, width: "100%", margin: "auto" }}>
+            <Card title="User Form" style={{ maxWidth: 500, width: "100%" ,margin: "10px auto" }}>
                 <Form layout="horizontal">
-                    <FormComponent label="First Name" placeholder="input first name" value={firstName} handleValue={(e)=>{setFirstName(e.target.value)}}/>
-                    <FormComponent label="Last Name" placeholder="input last name" value={lastName} handleValue={(e)=>{setLastName(e.target.value)}}/>
+                    <FormComponent label="First Name" placeholder="input first name" value={firstName}  handleValue={(e)=>dispatch({type:"firstName",payload:e.target.value})}/>
+                    <FormComponent label="Last Name" placeholder="input last name" value={lastName} handleValue={(e) => dispatch({ type: "lastName", payload: e.target.value })}/>
                     <Form.Item label="Birthday" {...FormItemLayout}>
-                        <DatePicker format={dateFormat}  onChange={(date, dateString) => { setBirthday(dateString) }} />
+                        <DatePicker format='DD/MM/YYYY' onChange={(date, dateString) => dispatch({ type: "birthday", payload: dateString })} />
                     </Form.Item>
-                    <FormComponent label="Age" placeholder="input Age" value={age} handleValue={(e)=>{setAge(e.target.value)}}/>
-                    <FormComponent label="Hobby" placeholder="input Hobby" value={hobby} handleValue={(e)=>{setHobby(e.target.value)}}/>
+                    <FormComponent label="Age" placeholder="input Age" value={age} handleValue={(e) => dispatch({ type: "age", payload: e.target.value })}/>
+                    <FormComponent label="Hobby" placeholder="input Hobby" value={hobby} handleValue={(e) => dispatch({ type: "hobby", payload: e.target.value })}/>
                     <Form.Item {...buttonItemLayout}>
-                        <Button type="primary" onClick={handleSubmit}>Submit</Button>
+                        <Button type="primary" htmlType="submit" onClick={()=>dispatch({type:"submit", payload:info})}>Submit</Button>
+                        
                     </Form.Item> 
                 </Form>
             </Card>
-            <div style={{maxWidth:"1200px",margin:"auto",marginTop:"30px"}}>
-            <Table columns={columns} dataSource={tableData} />
+            <div style={{maxWidth:"1200px",margin:"auto"}}>
+            <Table columns={columns} dataSource={list} />
             </div>
         </Fragment>
     );

@@ -10,7 +10,7 @@ const FormComponent = ({ handleValue, label, placeholder,value}) => {
     return (
         <Fragment>
           <Form.Item label={label} {...FormItemLayout}>
-             <Input placeholder={placeholder} value={value} onChange={handleValue} />
+             <Input placeholder={placeholder} value={value}  onChange={handleValue} />
          </Form.Item>
         </Fragment>
     );
