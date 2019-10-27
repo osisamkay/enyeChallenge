@@ -1,5 +1,4 @@
 const initialState = {
-    id:" ",
     firstName:"",
     lastName:"",
     age:" ",

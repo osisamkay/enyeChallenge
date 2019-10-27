@@ -4,8 +4,6 @@ import FormComponent from '../Components/FormComponent';
 import { FormItemLayout, buttonItemLayout} from "../Components/Formlayout"
 import {useSelector,useDispatch} from "react-redux"
 import { columns } from '../Components/TableComponent';
-import moment from "moment"
-const uuid = require('uuid/v5');
 
 
 
@@ -19,10 +17,9 @@ const Home = () => {
        return null
     }
 
-const id = uuid(`${firstName} ${lastName}`, uuid.DNS)
    
    //... ......submit payload.............
-    const info = {id, firstName,lastName,birthday,age,hobby}
+    const info = { firstName,lastName,birthday,age,hobby}
     
     return (
         <Fragment >
