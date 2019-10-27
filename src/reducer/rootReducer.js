@@ -1,11 +1,15 @@
 const initialState = {
+    id:" ",
     firstName:"",
     lastName:"",
     age:" ",
     hobby:"",
     birthday:"",
-    list:[]
+    Saving:false,
+    saved:false,
+    list:null
 };
+
 
 
 export const rootReducer = (state = initialState, { type ,payload}) => {
@@ -21,8 +25,15 @@ export const rootReducer = (state = initialState, { type ,payload}) => {
             return { ...state, hobby: payload };
         case "birthday":
             return { ...state, birthday: payload };
-        case "submit":
-            return {list: [...state.list,payload] };
+        case "submit-Async":
+            return {list: payload }
+        case "submit-Async2":
+            return state
+        case "saveUser":
+            return {...state, Saving: true };
+        case "saved":
+            return {...state, saved: true }
+    
         default:
             return state;
     }

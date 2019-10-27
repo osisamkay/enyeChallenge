@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'antd/dist/antd.css'
 import Home from './Screen/Home';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import {Provider} from "react-redux";
+import createSagaMiddleware from 'redux-saga'
 import {rootReducer} from './reducer/rootReducer';
+import Saga from './Saga/saga';
 
-const store = createStore(rootReducer)
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),applyMiddleware(sagaMiddleware) )
+sagaMiddleware.run(Saga)
 
 
 

@@ -1,18 +1,27 @@
-import React,{Fragment} from 'react';
+import React,{Fragment,useState,useEffect} from 'react';
 import { Form,  Button, Card, DatePicker, Table} from 'antd';
 import FormComponent from '../Components/FormComponent';
 import { FormItemLayout, buttonItemLayout} from "../Components/Formlayout"
-import {columns} from "../Components/TableComponent"
 import {useSelector,useDispatch} from "react-redux"
-import { rootReducer } from '../reducer/rootReducer';
+import Firebase from "firebase"
+import { columns } from '../Components/TableComponent';
+const uuid = require('uuid/v5');
+
+
 
 const Home = () => {
+    const [data,setData]=useState([])
     const { firstName, lastName, age, hobby, birthday,list} = useSelector(state => state)
-
     const dispatch = useDispatch()
 
+    if (!list) {
+       return null
+    }
+
+const id = uuid(`${firstName} ${lastName}`, uuid.DNS)
+   
    //... ......submit payload.............
-    const info = {firstName,lastName,birthday,age,hobby}
+    const info = {id, firstName,lastName,birthday,age,hobby}
     
     return (
         <Fragment >
