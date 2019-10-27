@@ -9,9 +9,7 @@ const database = firebase.database();
 
 function* writeUserData ({payload}) {
   try {
-    yield put({ type: "saveUser" });
     yield database.ref("users").push().set(payload);
-    yield put({ type: "saved" });
     yield alert("user added successfully");
   } catch (err) {
     yield put({ type:"ERROR" });

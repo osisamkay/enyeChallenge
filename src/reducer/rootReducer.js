@@ -5,8 +5,6 @@ const initialState = {
     age:" ",
     hobby:"",
     birthday:"",
-    Saving:false,
-    saved:false,
     list:null
 };
 
@@ -27,10 +25,6 @@ export const rootReducer = (state = initialState, { type ,payload}) => {
             return { ...state, birthday: payload };
         case "submit-Async":
             return {list: payload }
-        case "saveUser":
-            return {...state, Saving: true };
-        case "saved":
-            return {...state, saved: true }
     
         default:
             return state;
