@@ -12,9 +12,10 @@ function* writeUserData ({payload}) {
     yield put({ type: "saveUser" });
     yield database.ref("users").push().set(payload);
     yield put({ type: "saved" });
+    yield alert("user added successfully");
   } catch (err) {
     yield put({ type:"ERROR" });
-    console.log("something went wrong");
+    alert("something went wrong,fill in all inputs");
   }
 }
 
