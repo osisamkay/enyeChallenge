@@ -13,6 +13,7 @@ function* writeUserData ({payload}) {
   try {
     yield database.ref("users").push().set(payload);
     yield alert("user added successfully");
+    yield window.location.reload()
   } catch (err) {
     yield put({ type:"ERROR" });
     alert("something went wrong,fill in all inputs");
