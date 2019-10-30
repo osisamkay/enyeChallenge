@@ -1,8 +1,18 @@
-export const Data = async () => {
-    const response = await fetch("https://us-central1-enye-reduxx.cloudfunctions.net/users");
-    const data = await response.json();
-    if (response.data > 400) {
-        throw new Error(data.error)
+
+export const Data =async data => {
+    try {
+        const response = await fetch('https://us-central1-enye-reduxx.cloudfunctions.net/users', {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify(data), // data can be `string` or {object}!
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+    } catch (error) {
+        console.error('Error:', error);
     }
-    return data
+
 }
+

@@ -10,8 +10,10 @@ firebase.initializeApp(config);
 const database = firebase.database();
 
 function* writeUserData ({payload}) {
+  // const data=yield call (Data)
+  // console.log(data)
   try {
-    yield database.ref("users").push().set(payload);
+    yield Data(payload);
     yield alert("user added successfully");
     yield window.location.reload()
   } catch (err) {
@@ -22,16 +24,14 @@ function* writeUserData ({payload}) {
 
 function* startListener() {
   // #1
-  // const data = yield call(Data);
   const channel = new eventChannel(emiter => {
-   const d = axios.get("https://us-central1-enye-reduxx.cloudfunctions.net/users")
-    .then(({data})=>{
-      emiter({data:data})
-    })
+    const listener = database.ref("users").on("value", snapshot => {
+      emiter({ data: snapshot.val() || {} });
+    });
 
     // #2
     return () => {
-      d.off();
+      listener.off();
     };
   });
 
