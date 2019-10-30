@@ -3,15 +3,12 @@ import { eventChannel } from 'redux-saga'
 import firebase from "firebase";
 import { config } from '../Config/config';
 import { Data } from '../Api/Api';
-import axios from "axios"
 
 firebase.initializeApp(config);
 
 const database = firebase.database();
 
 function* writeUserData ({payload}) {
-  // const data=yield call (Data)
-  // console.log(data)
   try {
     yield Data(payload);
     yield alert("user added successfully");
